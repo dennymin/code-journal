@@ -1,0 +1,84 @@
+/* Header Section */
+header {
+  background-color: rgb(86, 43, 129);
+  padding: 10px;
+  font-size: larger;
+  width: 150%;
+}
+
+.header-container {
+  position: relative;
+  left: -15px;
+  background-color: rgb(86, 43, 129);
+  font-weight: 400;
+  color: white;
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+@media screen and (min-width: 768px) {
+  .header-container {
+    left: 0;
+  }
+}
+
+/* Button Section */
+.save-button {
+  background-color: rgb(86, 43, 129);
+  color: white;
+  padding: 5px 10px;
+  align-self: flex-end;
+  border: 1px hidden;
+  border-radius: 5px;
+  position: relative;
+  top: 15px;
+  margin-bottom: 30px;
+}
+
+/* Body */
+
+body {
+  font-family: sans-serif, monospace;
+  font-weight: 600;
+}
+
+* {
+  background-color: rgb(240, 240, 240);
+}
+
+label {
+  line-height: 2.5;
+}
+
+.text-input {
+  border: 1px solid darkgrey;
+  border-radius: 3px;
+  background-color: white;
+  width: 100%;
+  line-height: 2;
+  outline-color: rgb(86, 43, 129);
+}
+
+.notes {
+  height: 100px;
+  resize: none;
+}
+
+img {
+  max-width: 100%;
+  object-position: center;
+  object-fit: contain;
+}
+
+/* Other Tools */
+.flex-end {
+  justify-content: flex-end;
+}
+
+.centered {
+  justify-content: center;
+}
+
+.full-flex {
+  flex-basis: 100%;
+}
