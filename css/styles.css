@@ -64,7 +64,6 @@ textarea {
 
 .current-page {
   justify-content: flex-start;
-  align-items: center;
 }
 
 .current-title {
@@ -112,6 +111,14 @@ img {
 
 .flex-basis-half {
   flex-basis: 50%;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.no-margin {
+  margin: 0;
 }
 
 @media screen and (min-width: 768px) {
