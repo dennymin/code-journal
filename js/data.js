@@ -16,4 +16,4 @@ function storeLocal(event) {
   var dataJSON = JSON.stringify(data);
   localStorage.setItem('local-journal', dataJSON);
 }
-window.addEventListener('beoreunload', storeLocal);
+window.addEventListener('beforeunload', storeLocal);

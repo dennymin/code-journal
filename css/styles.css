@@ -50,6 +50,11 @@ label {
   line-height: 2.5;
 }
 
+textarea {
+  font-family: sans-serif, monospace;
+  font-weight: 500;
+}
+
 .text-input {
   border: 1px solid darkgrey;
   border-radius: 3px;
