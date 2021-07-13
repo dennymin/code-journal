@@ -15,10 +15,36 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-  </header>
-  <main>
-  </main>
+  <div class="row">
+    <header class="header-details full-flex"><h1 class="header-container container">Code Journal</h1></header>
+    <main class="container">
+      <div data-view="entry-form">
+        <form class="row centered">
+          <div class="row column-full full-flex">
+            <h1>New Entry</h1>
+          </div>
+          <img class="column-half previewPhoto" src="images/placeholder-image-square.jpg" name="preview-photo">
+          <div class="column-half">
+            <div class="row">
+              <label class="full-flex" for="Title">Title</label>
+              <input class="full-flex text-input" id="Title" type="text" required="required" name="title">
+            </div>
+            <div class="row photo-url-section">
+              <label class="full-flex" for="Photo-Url">Photo URL</label>
+              <input class="full flex text-input photoUrl" id="Photo-Url" type="url" required="required" name="photoUrl">
+            </div>
+          </div>
+          <div class="column-full row">
+            <label class="full-flex" for="Notes">Notes</label>
+            <textarea class="full-flex text-input notes" id="Notes" type="text" required="required" name="notes"></textarea>
+          </div>
+          <div class="column-full row flex-end">
+            <input class="save-button" type="submit" name="save-button" value="SAVE">
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
