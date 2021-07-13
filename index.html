@@ -16,13 +16,24 @@
 </head>
 <body>
   <div class="row">
-    <header class="header-details full-flex"><h1 class="header-container container">Code Journal</h1></header>
-    <main class="container">
-      <div data-view="entry-form">
+    <header class="full-flex row">
+      <div class="container row header-colors header-positioning">
+        <h1 class="header-colors header-main">Code Journal</h1>
+        <h2 class="header-colors header-sub">Entries</h2>
+      </div>
+    </header>
+    <main class="container row">
+      <div class="row column-full full-flex current-page">
+        <div class="row flex-basis-half">
+          <h1 class="current-title hidden">New Entry</h1>
+          <h1 class="current-title">Entries</h1>
+        </div>
+        <div class="row flex-basis-half flex-end">
+          <button class="button" name="new-entry-button">NEW</button>
+        </div>
+      </div>
+      <div class="" data-view="entry-form">
         <form class="row centered">
-          <div class="row column-full full-flex">
-            <h1>New Entry</h1>
-          </div>
           <img class="column-half previewPhoto" src="images/placeholder-image-square.jpg" name="preview-photo">
           <div class="column-half">
             <div class="row">
@@ -39,9 +50,14 @@
             <textarea class="full-flex text-input notes" id="Notes" type="text" required="required" name="notes"></textarea>
           </div>
           <div class="column-full row flex-end">
-            <input class="save-button" type="submit" name="save-button" value="SAVE">
+            <input class="button save-button" name="save-button" type="submit">
           </div>
         </form>
+      </div>
+
+      <div data-view="entries">
+        <ul>
+        </ul>
       </div>
     </main>
   </div>

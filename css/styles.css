@@ -1,36 +1,49 @@
 /* Header Section */
 header {
   background-color: rgb(86, 43, 129);
-  padding: 10px;
-  font-size: larger;
-  width: 150%;
 }
 
-.header-container {
-  position: relative;
-  left: -15px;
-  background-color: rgb(86, 43, 129);
-  font-weight: 400;
+.header-colors {
+  background: rgb(86, 43, 129);
   color: white;
-  font-size: 1.5rem;
-  text-align: left;
+}
+
+.header-positioning {
+  margin: 0;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.header-main {
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+
+.header-sub {
+  font-size: 0.85rem;
+  font-weight: 200;
+  position: relative;
+  left: 15px;
 }
 
 /* Button Section */
-.save-button {
+.button {
   background-color: rgb(86, 43, 129);
   color: white;
-  padding: 5px 10px;
-  align-self: flex-end;
+  text-align: center;
+  padding: 0 10px;
   border: 1px hidden;
   border-radius: 5px;
+  height: 30px;
+}
+
+.save-button {
   position: relative;
   top: 15px;
   margin-bottom: 30px;
 }
 
 /* Body */
-
 body {
   font-family: sans-serif, monospace;
   font-weight: 600;
@@ -47,6 +60,16 @@ label {
 textarea {
   font-family: sans-serif, monospace;
   font-weight: 500;
+}
+
+.current-page {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.current-title {
+  font-size: 1.6rem;
+  align-self: flex-start;
 }
 
 .text-input {
@@ -75,6 +98,10 @@ img {
   justify-content: flex-end;
 }
 
+.flex-start {
+  justify-content: flex-start;
+}
+
 .centered {
   justify-content: center;
 }
@@ -83,8 +110,22 @@ img {
   flex-basis: 100%;
 }
 
+.flex-basis-half {
+  flex-basis: 50%;
+}
+
 @media screen and (min-width: 768px) {
-  .header-container {
-    left: 0;
+  .header-positioning {
+    position: relative;
+    left: 320px;
+  }
+
+  .header-main {
+    font-size: 1.3rem;
+  }
+
+  .header-sub {
+    font-size: 1rem;
+    left: 20px;
   }
 }
