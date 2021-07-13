@@ -31,4 +31,9 @@
   .column-half {
     width: 50%;
   }
+
+  .photo-url-section {
+    position: relative;
+    top: 20px;
+  }
 }

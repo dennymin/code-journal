@@ -73,6 +73,7 @@ img {
   max-width: 100%;
   object-position: center;
   object-fit: contain;
+  margin-bottom: 20px;
 }
 
 /* Other Tools */
