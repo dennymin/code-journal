@@ -17,22 +17,23 @@
 <body>
   <div class="row">
     <header class="header-colors full-flex row">
-      <div class="container row header-colors header-positioning full-flex">
+      <nav class="container row header-colors header-positioning full-flex">
         <h1 class="header-colors header-main">Code Journal</h1>
-        <h2 class="header-colors header-sub">Entries</h2>
-      </div>
+        <h2 class="header-colors header-sub">
+          <a class="header-colors header-entries-link">Entries</a></h2>
+      </nav>
     </header>
     <main class="container row full-flex">
       <div class="row column-full full-flex align-items-center">
         <div class="row flex-basis-half current-page">
-          <h1 class="current-title hidden">New Entry</h1>
-          <h1 class="current-title">Entries</h1>
+          <h1 class="new-entry-form-title current-title">New Entry</h1>
+          <h1 class="main-entries-title current-title hidden">Entries</h1>
         </div>
         <div class="row flex-basis-half flex-end">
-          <button class="button" name="new-entry-button">NEW</button>
+          <button class="button new-entry-button" name="new-entry-button">NEW</button>
         </div>
       </div>
-      <div class="hidden" data-view="entry-form">
+      <div class="new-entry-form" data-view="entry-form">
         <form class="row centered">
           <img class="column-half preview-photo" src="images/placeholder-image-square.jpg" name="preview-photo">
           <div class="column-half">
@@ -55,7 +56,7 @@
         </form>
       </div>
 
-      <div class="" data-view="entries">
+      <div class="entries-list hidden" data-view="entries">
         <ul class="row centered">
           <li class="empty-entry-list hidden">No entries have been recorded</li>
           <li class="entry-container hidden">

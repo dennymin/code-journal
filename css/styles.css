@@ -25,6 +25,11 @@ header {
   left: 15px;
 }
 
+.header-entries-link,
+.header-entries-link:hover {
+  cursor: pointer;
+}
+
 /* Current Page Banner */
 .current-page {
   justify-content: flex-start;
@@ -44,6 +49,10 @@ header {
   border: 1px hidden;
   border-radius: 5px;
   height: 30px;
+}
+
+.button:hover {
+  cursor: pointer;
 }
 
 .save-button {

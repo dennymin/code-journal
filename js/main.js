@@ -12,6 +12,9 @@ $photoUrl.addEventListener('input', updateSRC);
 
 // save button interactions code
 var $form = document.forms[0];
+var $newEntryForm = document.querySelector('.new-entry-form');
+var $newEntryFormTitle = document.querySelector('.new-entry-form-title');
+var $mainEntriesTitle = document.querySelector('.main-entries-title');
 function retrieveData(event) {
   event.preventDefault();
   var dataEntry = {};
@@ -23,11 +26,16 @@ function retrieveData(event) {
   data.nextEntryId++;
   $form.reset();
   $previewPhoto.src = 'images/placeholder-image-square.jpg';
+  $newEntryForm.setAttribute('class', 'hidden');
+  $entriesList.setAttribute('class', 'entries-list');
+  $newEntryFormTitle.setAttribute('class', 'current-title hidden');
+  $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title');
 }
 $form.addEventListener('submit', retrieveData);
 
-// entries code
-var $entriesList = document.querySelector('ul');
+// entries list generation code
+var $entriesList = document.querySelector('.entries-list');
+var $entriesUnorderedList = document.querySelector('ul');
 var $emptyList = document.querySelector('.empty-entry-list');
 
 function createEntry(entry) {
@@ -61,8 +69,27 @@ function createEntry(entry) {
 function generateDOM(event) {
   $emptyList.setAttribute('class', 'hidden');
   for (var dataLength = 0; dataLength < data.entries.length; dataLength++) {
-    $entriesList.appendChild(createEntry(data.entries[dataLength]));
+    $entriesUnorderedList.appendChild(createEntry(data.entries[dataLength]));
   }
 }
-
 document.addEventListener('DOMContentLoaded', generateDOM);
+
+// button to new entry form
+function goToNewForm(event) {
+  $newEntryForm.setAttribute('class', 'new-entry-form');
+  $entriesList.setAttribute('class', 'hidden');
+  $newEntryFormTitle.setAttribute('class', 'current-title');
+  $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title hidden');
+}
+var $newEntryButton = document.querySelector('.new-entry-button');
+$newEntryButton.addEventListener('click', goToNewForm);
+
+// nav links
+var $entriesLink = document.querySelector('.header-entries-link');
+function goToEntriesViaLink(event) {
+  $newEntryForm.setAttribute('class', 'hidden');
+  $entriesList.setAttribute('class', 'entries-list');
+  $newEntryFormTitle.setAttribute('class', 'current-title hidden');
+  $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title');
+}
+$entriesLink.addEventListener('click', goToEntriesViaLink);
