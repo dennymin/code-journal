@@ -3,7 +3,7 @@
 
 // photo url and preview photo code
 var $photoUrl = document.querySelector('.photoUrl');
-var $previewPhoto = document.querySelector('.previewPhoto');
+var $previewPhoto = document.querySelector('.preview-photo');
 function updateSRC(event) {
   $previewPhoto.src = $photoUrl.value;
 }
@@ -26,13 +26,17 @@ function retrieveData(event) {
 }
 $form.addEventListener('submit', retrieveData);
 
+// entries code
+var $entriesList = document.querySelector('ul');
+var $emptyList = document.querySelector('.empty-entry-list');
+
 function createEntry(entry) {
   var $newEntry = document.createElement('li');
-  $newEntry.setAttribute('class', 'entry-container');
+  $newEntry.setAttribute('class', 'entry-container full-flex');
 
   var $newEntryImage = document.createElement('img');
   $newEntryImage.setAttribute('class', 'column-half object-fit-contain object-position-start');
-  $newEntry.Image.setAttribute('src', entry.pictureLink);
+  $newEntryImage.setAttribute('src', entry.pictureLink);
   $newEntry.appendChild($newEntryImage);
 
   var $newEntryTextDiv = document.createElement('div');
@@ -54,4 +58,11 @@ function createEntry(entry) {
   return $newEntry;
 }
 
-createEntry();
+function generateDOM(event) {
+  $emptyList.setAttribute('class', 'hidden');
+  for (var dataLength = 0; dataLength < data.entries.length; dataLength++) {
+    $entriesList.appendChild(createEntry(data.entries[dataLength]));
+  }
+}
+
+document.addEventListener('DOMContentLoaded', generateDOM);
