@@ -15,9 +15,9 @@ var $form = document.forms[0];
 function retrieveData(event) {
   event.preventDefault();
   var dataEntry = {};
-  dataEntry.title = document.forms[0].elements.title.value;
-  dataEntry.pictureLink = document.forms[0].elements.photoUrl.value;
-  dataEntry.notes = document.forms[0].elements.notes.value;
+  dataEntry.title = $form.elements.title.value;
+  dataEntry.pictureLink = $form.elements.photoUrl.value;
+  dataEntry.notes = $form.elements.notes.value;
   dataEntry.nextEntryId = data.nextEntryId;
   data.entries.unshift(dataEntry);
   data.nextEntryId++;
