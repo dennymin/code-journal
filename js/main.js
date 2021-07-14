@@ -80,22 +80,8 @@ document.addEventListener('DOMContentLoaded', generateDOM);
 // links
 var $newEntryButton = document.querySelector('.new-entry-button');
 $newEntryButton.addEventListener('click', retrieveTargetLink);
-// $newEntryButton.addEventListener('click', function (event) { switchViewTo('entry-form'); });
 var $entriesLink = document.querySelector('.header-entries-link');
 $entriesLink.addEventListener('click', retrieveTargetLink);
-// $entriesLink.addEventListener('click', function (event) { switchViewTo('entries'); });
-
-// function switchView(event) {
-//   var $activeView = event.target.getAttribute('data-view');
-//   for (var j = 0; j < pages.length; j++) {
-//     if (pages[j].getAttribute('data-view') === $activeView) {
-//       data.view = event.target.getAttribute('data-view');
-//       pages[j].className = 'view';
-//     } else {
-//       pages[j].className = 'view hidden';
-//     }
-//   }
-// }
 
 function retrieveTargetLink(event) {
   var destination = event.target.getAttribute('data-view');
