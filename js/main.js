@@ -38,9 +38,10 @@ $form.addEventListener('submit', prependDOM);
 // entries list generation code
 var $entriesList = document.querySelector('.entries-list');
 var $entriesUnorderedList = document.querySelector('ul');
-// var $emptyList = document.querySelector('.empty-entry-list');
+var $emptyList = document.querySelector('.empty-entry-list');
 
 function createEntry(entry) {
+  $emptyList.setAttribute('class', 'hidden');
   var $newEntry = document.createElement('li');
   $newEntry.setAttribute('class', 'entry-container full-flex');
 
@@ -69,11 +70,6 @@ function createEntry(entry) {
 }
 
 function generateDOM(event) {
-  // if (data.entries.length > 0) {
-  //   $emptyList.setAttribute('class', 'hidden');
-  // } else {
-  //   $emptyList.setAttribute('class', '');
-  // }
   for (var dataLength = 0; dataLength < data.entries.length; dataLength++) {
     $entriesUnorderedList.appendChild(createEntry(data.entries[dataLength]));
   }
