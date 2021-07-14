@@ -102,10 +102,6 @@ function switchViewTo(targetPage) {
 
 // prevent page from refreshing
 function showLastViewVisited(event) {
-  if (data.view === 'entries') {
-    switchViewTo('entries');
-  } else if (data.view === 'entry-form') {
-    switchViewTo('entry-form');
-  }
+  switchViewTo(data.view);
 }
 window.addEventListener('DOMContentLoaded', showLastViewVisited);
