@@ -23,9 +23,9 @@ function storeData(event) {
   data.nextEntryId++;
   $form.reset();
   $previewPhoto.src = 'images/placeholder-image-square.jpg';
-  $form.setAttribute('class', 'hidden');
   $entriesList.setAttribute('class', 'entries-list');
   data.view = 'entries';
+  switchViewTo('entries');
 }
 $form.addEventListener('submit', storeData);
 
@@ -79,15 +79,26 @@ document.addEventListener('DOMContentLoaded', generateDOM);
 
 // links
 var $newEntryButton = document.querySelector('.new-entry-button');
-$newEntryButton.addEventListener('click', switchView);
+$newEntryButton.addEventListener('click', function (event) { switchViewTo('entry-form'); });
 var $entriesLink = document.querySelector('.header-entries-link');
-$entriesLink.addEventListener('click', switchView);
+$entriesLink.addEventListener('click', function (event) { switchViewTo('entries'); });
+
+// function switchView(event) {
+//   var $activeView = event.target.getAttribute('data-view');
+//   for (var j = 0; j < pages.length; j++) {
+//     if (pages[j].getAttribute('data-view') === $activeView) {
+//       data.view = event.target.getAttribute('data-view');
+//       pages[j].className = 'view';
+//     } else {
+//       pages[j].className = 'view hidden';
+//     }
+//   }
+// }
 var pages = document.querySelectorAll('.page');
-function switchView(event) {
-  var $activeView = event.target.getAttribute('data-view');
+function switchViewTo(targetPage) {
   for (var j = 0; j < pages.length; j++) {
-    if (pages[j].getAttribute('data-view') === $activeView) {
-      data.view = event.target.getAttribute('data-view');
+    if (pages[j].getAttribute('data-view') === targetPage) {
+      data.view = targetPage;
       pages[j].className = 'view';
     } else {
       pages[j].className = 'view hidden';
@@ -96,7 +107,11 @@ function switchView(event) {
 }
 
 // prevent page from refreshing
-// function showLastViewVisited(event) {
-
-// }
-// window.addEventListener('DOMContentLoaded', showLastViewVisited);
+function showLastViewVisited(event) {
+  if (data.view === 'entries') {
+    switchViewTo('entries');
+  } else if (data.view === 'entry-form') {
+    switchViewTo('entry-form');
+  }
+}
+window.addEventListener('DOMContentLoaded', showLastViewVisited);
