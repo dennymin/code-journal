@@ -79,9 +79,11 @@ document.addEventListener('DOMContentLoaded', generateDOM);
 
 // links
 var $newEntryButton = document.querySelector('.new-entry-button');
-$newEntryButton.addEventListener('click', function (event) { switchViewTo('entry-form'); });
+$newEntryButton.addEventListener('click', retrieveTargetLink);
+// $newEntryButton.addEventListener('click', function (event) { switchViewTo('entry-form'); });
 var $entriesLink = document.querySelector('.header-entries-link');
-$entriesLink.addEventListener('click', function (event) { switchViewTo('entries'); });
+$entriesLink.addEventListener('click', retrieveTargetLink);
+// $entriesLink.addEventListener('click', function (event) { switchViewTo('entries'); });
 
 // function switchView(event) {
 //   var $activeView = event.target.getAttribute('data-view');
@@ -94,6 +96,12 @@ $entriesLink.addEventListener('click', function (event) { switchViewTo('entries'
 //     }
 //   }
 // }
+
+function retrieveTargetLink(event) {
+  var destination = event.target.getAttribute('data-view');
+  switchViewTo(destination);
+}
+
 var pages = document.querySelectorAll('.page');
 function switchViewTo(targetPage) {
   for (var j = 0; j < pages.length; j++) {
