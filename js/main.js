@@ -45,10 +45,12 @@ function createEntry(entry) {
   var $newEntry = document.createElement('li');
   $newEntry.setAttribute('class', 'entry-container full-flex');
 
+  var $newEntryImageContainer = document.createElement('div');
+  $newEntryImageContainer.setAttribute('class', 'column-half image-container');
   var $newEntryImage = document.createElement('img');
-  $newEntryImage.setAttribute('class', 'column-half object-fit-contain object-position-start');
   $newEntryImage.setAttribute('src', entry.pictureLink);
-  $newEntry.appendChild($newEntryImage);
+  $newEntryImageContainer.appendChild($newEntryImage);
+  $newEntry.appendChild($newEntryImageContainer);
 
   var $newEntryTextDiv = document.createElement('div');
   $newEntryTextDiv.setAttribute('class', 'column-half entry-text');

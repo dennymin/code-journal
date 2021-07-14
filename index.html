@@ -30,7 +30,9 @@
       <div class="new-entry-form" data-view="entry-form">
         <h1 class="new-entry-form-title current-title">New Entry</h1>
         <form class="row centered">
-          <img class="column-half preview-photo" src="images/placeholder-image-square.jpg" name="preview-photo">
+          <div class="column-half image-container">
+            <img class="preview-photo" src="images/placeholder-image-square.jpg" name="preview-photo">
+          </div>
           <div class="column-half">
             <div class="row">
               <label class="full-flex" for="Title">Title</label>
@@ -53,7 +55,7 @@
 
       <div class="entries-list hidden" data-view="entries">
         <div class="column-full full-flex align-items-center no-padding">
-          <div class="row flex-basis-half current-page">
+          <div class="row flex-basis-half">
             <h1 class="main-entries-title current-title">Entries</h1>
           </div>
           <div class="row flex-basis-half flex-end">
