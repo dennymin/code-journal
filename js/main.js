@@ -33,7 +33,11 @@ function storeData(event) {
   $newEntryButton.setAttribute('class', 'button new-entry-button');
 }
 $form.addEventListener('submit', storeData);
-$form.addEventListener('submit', generateDOM);
+
+function prependDOM(event) {
+  $entriesUnorderedList.prepend(createEntry(data.entries[0]));
+}
+$form.addEventListener('submit', prependDOM);
 
 // entries list generation code
 var $entriesList = document.querySelector('.entries-list');
