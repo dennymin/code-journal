@@ -26,6 +26,7 @@ function storeData(event) {
   $previewPhoto.src = 'images/placeholder-image-square.jpg';
   $newEntryForm.setAttribute('class', 'hidden');
   $entriesList.setAttribute('class', 'entries-list');
+  data.view = 'entries';
 }
 $form.addEventListener('submit', storeData);
 
@@ -37,7 +38,7 @@ $form.addEventListener('submit', prependDOM);
 // entries list generation code
 var $entriesList = document.querySelector('.entries-list');
 var $entriesUnorderedList = document.querySelector('ul');
-var $emptyList = document.querySelector('.empty-entry-list');
+// var $emptyList = document.querySelector('.empty-entry-list');
 
 function createEntry(entry) {
   var $newEntry = document.createElement('li');
@@ -68,7 +69,11 @@ function createEntry(entry) {
 }
 
 function generateDOM(event) {
-  $emptyList.setAttribute('class', 'hidden');
+  // if (data.entries.length > 0) {
+  //   $emptyList.setAttribute('class', 'hidden');
+  // } else {
+  //   $emptyList.setAttribute('class', '');
+  // }
   for (var dataLength = 0; dataLength < data.entries.length; dataLength++) {
     $entriesUnorderedList.appendChild(createEntry(data.entries[dataLength]));
   }
@@ -79,6 +84,7 @@ document.addEventListener('DOMContentLoaded', generateDOM);
 function goToNewForm(event) {
   $newEntryForm.setAttribute('class', 'new-entry-form');
   $entriesList.setAttribute('class', 'hidden');
+  data.view = 'entry-form';
 }
 var $newEntryButton = document.querySelector('.new-entry-button');
 $newEntryButton.addEventListener('click', goToNewForm);
@@ -88,12 +94,21 @@ var $entriesLink = document.querySelector('.header-entries-link');
 function goToEntriesViaLink(event) {
   $newEntryForm.setAttribute('class', 'hidden');
   $entriesList.setAttribute('class', 'entries-list');
+  data.view = 'entries';
 }
 $entriesLink.addEventListener('click', goToEntriesViaLink);
 
 // prevent page from refreshing
 function preventRefresh(event) {
-  event.preventDefault();
-  return true;
+  var currentView = data.view;
+  if (currentView === 'entries') {
+    $newEntryForm.setAttribute('class', 'hidden');
+    $entriesList.setAttribute('class', 'entries-list');
+    data.view = 'entries';
+  } else if (currentView === 'entry-form') {
+    $newEntryForm.setAttribute('class', 'new-entry-form');
+    $entriesList.setAttribute('class', 'hidden');
+    data.view = 'entry-form';
+  }
 }
-window.addEventListener('beforeunload', preventRefresh);
+window.addEventListener('DOMContentLoaded', preventRefresh);
