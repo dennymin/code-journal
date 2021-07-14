@@ -15,7 +15,7 @@ var $form = document.forms[0];
 var $newEntryForm = document.querySelector('.new-entry-form');
 var $newEntryFormTitle = document.querySelector('.new-entry-form-title');
 var $mainEntriesTitle = document.querySelector('.main-entries-title');
-function retrieveData(event) {
+function storeData(event) {
   event.preventDefault();
   var dataEntry = {};
   dataEntry.title = $form.elements.title.value;
@@ -30,8 +30,10 @@ function retrieveData(event) {
   $entriesList.setAttribute('class', 'entries-list');
   $newEntryFormTitle.setAttribute('class', 'current-title hidden');
   $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title');
+  $newEntryButton.setAttribute('class', 'button new-entry-button');
 }
-$form.addEventListener('submit', retrieveData);
+$form.addEventListener('submit', storeData);
+$form.addEventListener('submit', generateDOM);
 
 // entries list generation code
 var $entriesList = document.querySelector('.entries-list');
@@ -80,6 +82,7 @@ function goToNewForm(event) {
   $entriesList.setAttribute('class', 'hidden');
   $newEntryFormTitle.setAttribute('class', 'current-title');
   $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title hidden');
+  $newEntryButton.setAttribute('class', 'hidden');
 }
 var $newEntryButton = document.querySelector('.new-entry-button');
 $newEntryButton.addEventListener('click', goToNewForm);
@@ -91,5 +94,6 @@ function goToEntriesViaLink(event) {
   $entriesList.setAttribute('class', 'entries-list');
   $newEntryFormTitle.setAttribute('class', 'current-title hidden');
   $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title');
+  $newEntryButton.setAttribute('class', 'button new-entry-button');
 }
 $entriesLink.addEventListener('click', goToEntriesViaLink);

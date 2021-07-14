@@ -15,25 +15,20 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="row">
-    <header class="header-colors full-flex row">
+  <div class="centered">
+
+    <header class="header-colors">
       <nav class="container row header-colors header-positioning full-flex">
         <h1 class="header-colors header-main">Code Journal</h1>
         <h2 class="header-colors header-sub">
-          <a class="header-colors header-entries-link">Entries</a></h2>
+          <a class="header-colors header-entries-link" href="#">Entries</a></h2>
       </nav>
     </header>
-    <main class="container row full-flex">
-      <div class="row column-full full-flex align-items-center">
-        <div class="row flex-basis-half current-page">
-          <h1 class="new-entry-form-title current-title">New Entry</h1>
-          <h1 class="main-entries-title current-title hidden">Entries</h1>
-        </div>
-        <div class="row flex-basis-half flex-end">
-          <button class="button new-entry-button" name="new-entry-button">NEW</button>
-        </div>
-      </div>
+
+    <main class="container full-flex">
+
       <div class="new-entry-form" data-view="entry-form">
+        <h1 class="new-entry-form-title current-title">New Entry</h1>
         <form class="row centered">
           <img class="column-half preview-photo" src="images/placeholder-image-square.jpg" name="preview-photo">
           <div class="column-half">
@@ -57,18 +52,19 @@
       </div>
 
       <div class="entries-list hidden" data-view="entries">
+        <div class="column-full full-flex align-items-center no-padding">
+          <div class="row flex-basis-half current-page">
+            <h1 class="main-entries-title current-title hidden">Entries</h1>
+          </div>
+          <div class="row flex-basis-half flex-end">
+            <button class="button new-entry-button" name="new-entry-button">NEW</button>
+          </div>
+        </div>
         <ul class="row centered">
           <li class="empty-entry-list hidden">No entries have been recorded</li>
-          <li class="entry-container hidden">
-            <img class="column-half object-fit-contain object-position-start" src="images/placeholder-image-square.jpg">
-            <div class="column-half entry-text">
-              <h2 class="entry-title-text"></h2>
-              <p class="entry-notes-text">
-              </p>
-            </div>
-          </li>
         </ul>
       </div>
+
     </main>
   </div>
   <script src="js/data.js"></script>

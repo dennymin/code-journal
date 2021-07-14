@@ -1,8 +1,4 @@
 /* Header Banner Section */
-header {
-  background-color: rgb(86, 43, 129);
-}
-
 .header-colors {
   background: rgb(86, 43, 129);
   color: white;
@@ -26,18 +22,25 @@ header {
 }
 
 .header-entries-link,
+.header-entries-link:active,
+.header-entries-link:visited,
 .header-entries-link:hover {
+  text-decoration: none;
   cursor: pointer;
 }
 
 /* Current Page Banner */
 .current-page {
   justify-content: flex-start;
+  padding: 0;
 }
 
 .current-title {
   font-size: 1.6rem;
-  align-self: flex-start;
+}
+
+.no-padding {
+  padding: 0;
 }
 
 /* Button Section */
@@ -148,6 +151,7 @@ label {
 }
 
 .align-items-center {
+  display: flex;
   align-items: center;
 }
 
