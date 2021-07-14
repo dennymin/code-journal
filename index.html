@@ -27,9 +27,9 @@
 
     <main class="container full-flex">
 
-      <div class="new-entry-form" data-view="entry-form">
-        <h1 class="new-entry-form-title current-title">New Entry</h1>
+      <div class="new-entry-form page" data-view="entry-form">
         <form class="row centered">
+          <h1 class="new-entry-form-title current-title column-full">New Entry</h1>
           <div class="column-half image-container">
             <img class="preview-photo" src="images/placeholder-image-square.jpg" name="preview-photo">
           </div>
@@ -48,18 +48,18 @@
             <textarea class="full-flex text-input notes" id="Notes" type="text" required="required" name="notes"></textarea>
           </div>
           <div class="column-full row flex-end">
-            <input class="button save-button" name="save-button" type="submit">
+            <input class="button save-button" name="save-button" type="submit" data-view="entries">
           </div>
         </form>
       </div>
 
-      <div class="entries-list hidden" data-view="entries">
-        <div class="column-full full-flex align-items-center no-padding">
+      <div class="entries-list page hidden" data-view="entries">
+        <div class="column-full full-flex align-items-center">
           <div class="row flex-basis-half">
             <h1 class="main-entries-title current-title">Entries</h1>
           </div>
           <div class="row flex-basis-half flex-end">
-            <button class="button new-entry-button" name="new-entry-button">NEW</button>
+            <button class="button new-entry-button" name="new-entry-button" data-view="entry-form">NEW</button>
           </div>
         </div>
         <ul class="row centered">

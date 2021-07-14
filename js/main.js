@@ -12,7 +12,6 @@ $photoUrl.addEventListener('input', updateSRC);
 
 // save button interactions code
 var $form = document.forms[0];
-var $newEntryForm = document.querySelector('.new-entry-form');
 function storeData(event) {
   event.preventDefault();
   var dataEntry = {};
@@ -24,7 +23,7 @@ function storeData(event) {
   data.nextEntryId++;
   $form.reset();
   $previewPhoto.src = 'images/placeholder-image-square.jpg';
-  $newEntryForm.setAttribute('class', 'hidden');
+  $form.setAttribute('class', 'hidden');
   $entriesList.setAttribute('class', 'entries-list');
   data.view = 'entries';
 }
@@ -46,7 +45,7 @@ function createEntry(entry) {
   $newEntry.setAttribute('class', 'entry-container full-flex');
 
   var $newEntryImageContainer = document.createElement('div');
-  $newEntryImageContainer.setAttribute('class', 'column-half image-container');
+  $newEntryImageContainer.setAttribute('class', 'column-half image-container no-padding');
   var $newEntryImage = document.createElement('img');
   $newEntryImage.setAttribute('src', entry.pictureLink);
   $newEntryImageContainer.appendChild($newEntryImage);
@@ -78,35 +77,26 @@ function generateDOM(event) {
 }
 document.addEventListener('DOMContentLoaded', generateDOM);
 
-// button to new entry form
-function goToNewForm(event) {
-  $newEntryForm.setAttribute('class', 'new-entry-form');
-  $entriesList.setAttribute('class', 'hidden');
-  data.view = 'entry-form';
-}
+// links
 var $newEntryButton = document.querySelector('.new-entry-button');
-$newEntryButton.addEventListener('click', goToNewForm);
-
-// nav links
+$newEntryButton.addEventListener('click', switchView);
 var $entriesLink = document.querySelector('.header-entries-link');
-function goToEntriesViaLink(event) {
-  $newEntryForm.setAttribute('class', 'hidden');
-  $entriesList.setAttribute('class', 'entries-list');
-  data.view = 'entries';
-}
-$entriesLink.addEventListener('click', goToEntriesViaLink);
-
-// prevent page from refreshing
-function preventRefresh(event) {
-  var currentView = data.view;
-  if (currentView === 'entries') {
-    $newEntryForm.setAttribute('class', 'hidden');
-    $entriesList.setAttribute('class', 'entries-list');
-    data.view = 'entries';
-  } else if (currentView === 'entry-form') {
-    $newEntryForm.setAttribute('class', 'new-entry-form');
-    $entriesList.setAttribute('class', 'hidden');
-    data.view = 'entry-form';
+$entriesLink.addEventListener('click', switchView);
+var pages = document.querySelectorAll('.page');
+function switchView(event) {
+  var $activeView = event.target.getAttribute('data-view');
+  for (var j = 0; j < pages.length; j++) {
+    if (pages[j].getAttribute('data-view') === $activeView) {
+      data.view = event.target.getAttribute('data-view');
+      pages[j].className = 'view';
+    } else {
+      pages[j].className = 'view hidden';
+    }
   }
 }
-window.addEventListener('DOMContentLoaded', preventRefresh);
+
+// prevent page from refreshing
+// function showLastViewVisited(event) {
+
+// }
+// window.addEventListener('DOMContentLoaded', showLastViewVisited);
