@@ -13,8 +13,6 @@ $photoUrl.addEventListener('input', updateSRC);
 // save button interactions code
 var $form = document.forms[0];
 var $newEntryForm = document.querySelector('.new-entry-form');
-var $newEntryFormTitle = document.querySelector('.new-entry-form-title');
-var $mainEntriesTitle = document.querySelector('.main-entries-title');
 function storeData(event) {
   event.preventDefault();
   var dataEntry = {};
@@ -28,9 +26,6 @@ function storeData(event) {
   $previewPhoto.src = 'images/placeholder-image-square.jpg';
   $newEntryForm.setAttribute('class', 'hidden');
   $entriesList.setAttribute('class', 'entries-list');
-  $newEntryFormTitle.setAttribute('class', 'current-title hidden');
-  $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title');
-  $newEntryButton.setAttribute('class', 'button new-entry-button');
 }
 $form.addEventListener('submit', storeData);
 
@@ -84,9 +79,6 @@ document.addEventListener('DOMContentLoaded', generateDOM);
 function goToNewForm(event) {
   $newEntryForm.setAttribute('class', 'new-entry-form');
   $entriesList.setAttribute('class', 'hidden');
-  $newEntryFormTitle.setAttribute('class', 'current-title');
-  $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title hidden');
-  $newEntryButton.setAttribute('class', 'hidden');
 }
 var $newEntryButton = document.querySelector('.new-entry-button');
 $newEntryButton.addEventListener('click', goToNewForm);
@@ -96,8 +88,12 @@ var $entriesLink = document.querySelector('.header-entries-link');
 function goToEntriesViaLink(event) {
   $newEntryForm.setAttribute('class', 'hidden');
   $entriesList.setAttribute('class', 'entries-list');
-  $newEntryFormTitle.setAttribute('class', 'current-title hidden');
-  $mainEntriesTitle.setAttribute('class', 'main-entries-title current-title');
-  $newEntryButton.setAttribute('class', 'button new-entry-button');
 }
 $entriesLink.addEventListener('click', goToEntriesViaLink);
+
+// prevent page from refreshing
+function preventRefresh(event) {
+  event.preventDefault();
+  return true;
+}
+window.addEventListener('beforeunload', preventRefresh);
