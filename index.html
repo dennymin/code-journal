@@ -38,7 +38,7 @@
               <label class="full-flex" for="Title">Title</label>
               <input class="full-flex text-input title" id="Title" type="text" required="required" name="title">
             </div>
-            <div class="row photo-url-section">
+            <div class="row">
               <label class="full-flex" for="Photo-Url">Photo URL</label>
               <input class="full flex text-input photoUrl" id="Photo-Url" type="url" required="required" name="photoUrl">
             </div>
@@ -47,8 +47,11 @@
             <label class="full-flex" for="Notes">Notes</label>
             <textarea class="full-flex text-input notes" id="Notes" type="text" required="required" name="notes"></textarea>
           </div>
-          <div class="column-full row flex-end">
-            <input class="button save-button" name="save-button" type="submit" data-view="entries">
+          <div class="column-full">
+            <div class="delete-button-container hidden">
+              <button class="delete-button float-left">Delete Entry</button>
+            </div>
+            <input class="button save-button float-right" name="saveButton" type="submit" data-view="entries">
           </div>
         </form>
       </div>
@@ -66,8 +69,15 @@
           <li class="empty-entry-list">No entries have been recorded</li>
         </ul>
       </div>
-
     </main>
+
+    <div class="modal-container row centered hidden">
+      <div class="modal">
+        <p>Are you sure you want to delete this entry?</p>
+        <button class="cancel-button option-button float-left">CANCEL</button>
+        <button class="confirm-button option-button float-right">CONFIRM</button>
+      </div>
+    </div>
   </div>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
