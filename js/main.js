@@ -60,6 +60,13 @@ function createEntry(entry) {
   $newEntryTitle.appendChild($newEntryTitleText);
   $newEntryTextDiv.appendChild($newEntryTitle);
 
+  var $editEntryIconButton = document.createElement('button');
+  $editEntryIconButton.className = ('float-right pen-button');
+  var $editEntryIcon = document.createElement('i');
+  $editEntryIcon.className = 'fas fa-pen';
+  $editEntryIconButton.appendChild($editEntryIcon);
+  $newEntryTitle.appendChild($editEntryIconButton);
+
   var $newEntryNotes = document.createElement('p');
   var $newEntryNotesText = document.createTextNode(entry.notes);
   $newEntryNotes.setAttribute('class', 'entry-notes-text');

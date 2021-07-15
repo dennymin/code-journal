@@ -49,7 +49,14 @@
   height: 30px;
 }
 
-.button:hover {
+.pen-button {
+  border: none;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.button:hover,
+.pen-button:hover {
   cursor: pointer;
 }
 
@@ -57,6 +64,14 @@
   position: relative;
   top: 15px;
   margin-bottom: 30px;
+}
+
+.fa-pen {
+  color: rgb(86, 43, 129);
+}
+
+.float-right {
+  float: right;
 }
 
 /* Entry Form Inputs */
