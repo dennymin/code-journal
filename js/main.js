@@ -20,7 +20,6 @@ function storeData(event) {
   dataEntry.notes = $form.elements.notes.value;
   dataEntry.entryId = data.nextEntryId;
   data.entries.unshift(dataEntry);
-  data.nextEntryId++;
   $form.reset();
   $previewPhoto.src = 'images/placeholder-image-square.jpg';
   $entriesList.setAttribute('class', 'entries-list');
@@ -30,7 +29,10 @@ function storeData(event) {
 $form.addEventListener('submit', storeData);
 
 function prependDOM(event) {
-  $entriesUnorderedList.prepend(createEntry(data.entries[0]));
+  var $newestEntry = createEntry(data.entries[0]);
+  $newestEntry.setAttribute('data-entry-id', data.nextEntryId);
+  data.nextEntryId++;
+  $entriesUnorderedList.prepend($newestEntry);
 }
 $form.addEventListener('submit', prependDOM);
 
@@ -79,7 +81,9 @@ function createEntry(entry) {
 
 function generateDOM(event) {
   for (var dataLength = 0; dataLength < data.entries.length; dataLength++) {
-    $entriesUnorderedList.appendChild(createEntry(data.entries[dataLength]));
+    var $appendedEntry = createEntry(data.entries[dataLength]);
+    $appendedEntry.setAttribute('data-entry-id', data.entries[dataLength].entryId);
+    $entriesUnorderedList.appendChild($appendedEntry);
   }
 }
 document.addEventListener('DOMContentLoaded', generateDOM);
