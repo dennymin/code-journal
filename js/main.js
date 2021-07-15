@@ -12,6 +12,7 @@ $photoUrl.addEventListener('input', updateSRC);
 
 // save button interactions code
 var $form = document.forms[0];
+var $saveButton = document.querySelector('.save-button');
 function storeData(event) {
   event.preventDefault();
   if (data.editing === null) {
@@ -52,7 +53,7 @@ function storeData(event) {
     data.editing = null;
   }
 }
-$form.addEventListener('submit', storeData);
+$saveButton.addEventListener('click', storeData);
 
 function prependDOM(selectEntry) {
   var $newestEntry = createEntry(selectEntry);
@@ -172,6 +173,7 @@ function editButtonListener(event) {
     $form.elements.notes.value = $currentNotes;
     $previewPhoto.setAttribute('src', $currentPhotoUrl);
   }
+  revealDelete();
 }
 $entriesList.addEventListener('click', editButtonListener);
 
@@ -184,18 +186,18 @@ function revealDelete(event) {
     $delete.setAttribute('class', 'delete-button-container');
   }
 }
-$entriesList.addEventListener('click', revealDelete);
 
 var $deleteButton = document.querySelector('.delete-button');
 var $modalScreen = document.querySelector('.modal-container');
 function revealModal(event) {
+  event.preventDefault();
   $modalScreen.setAttribute('class', 'modal-container row centered');
-  data.editing = false;
+  switchViewTo('entry-form');
 }
 $deleteButton.addEventListener('click', revealModal);
 
 var $cancelButton = document.querySelector('.cancel-button');
-// var $confirmButton = document.querySelector('.confirm-button');
+var $confirmButton = document.querySelector('.confirm-button');
 
 function setHidden(targetObject) {
   targetObject.className = 'hidden';
@@ -205,3 +207,23 @@ function modalCanceled(event) {
   setHidden($modalScreen);
 }
 $cancelButton.addEventListener('click', modalCanceled);
+
+function entryDeleted(event) {
+  for (var dataEntriesIndex3 = 0; dataEntriesIndex3 < data.entries.length; dataEntriesIndex3++) {
+    if (data.entries[dataEntriesIndex3].entryId.toString() === data.editing) {
+      data.entries.splice(dataEntriesIndex3, 1);
+    }
+  }
+  for (var objectsIndex = 0; objectsIndex < $entriesUnorderedList.children.length; objectsIndex++) {
+    if ($entriesUnorderedList.children[objectsIndex].getAttribute('data-entry-id') === data.editing) {
+      $entriesUnorderedList.children[objectsIndex].remove();
+    }
+  }
+  if (data.entries.length === 0) {
+    $emptyList.className('empty-entry-list');
+  }
+  modalCanceled();
+  switchViewTo('entries');
+  data.editing = null;
+}
+$confirmButton.addEventListener('click', entryDeleted);
