@@ -96,6 +96,7 @@
 
 .delete-button:hover {
   color: red;
+  cursor: pointer;
 }
 
 /* Modal Content */

@@ -177,11 +177,31 @@ $entriesList.addEventListener('click', editButtonListener);
 
 // delete button
 var $delete = document.querySelector('.delete-button-container');
-function revealDelete() {
+function revealDelete(event) {
   if (data.editing === null) {
-    $delete.setAttribute('class', 'hidden');
+    setHidden($delete);
   } else {
     $delete.setAttribute('class', 'delete-button-container');
   }
 }
-window.addEventListener('click', revealDelete);
+$entriesList.addEventListener('click', revealDelete);
+
+var $deleteButton = document.querySelector('.delete-button');
+var $modalScreen = document.querySelector('.modal-container');
+function revealModal(event) {
+  $modalScreen.setAttribute('class', 'modal-container row centered');
+  data.editing = false;
+}
+$deleteButton.addEventListener('click', revealModal);
+
+var $cancelButton = document.querySelector('.cancel-button');
+// var $confirmButton = document.querySelector('.confirm-button');
+
+function setHidden(targetObject) {
+  targetObject.className = 'hidden';
+}
+
+function modalCanceled(event) {
+  setHidden($modalScreen);
+}
+$cancelButton.addEventListener('click', modalCanceled);
