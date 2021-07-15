@@ -123,6 +123,12 @@ function retrieveTargetLink(event) {
   var destination = event.target.getAttribute('data-view');
   switchViewTo(destination);
   data.editing = null;
+  resetFormAndPicture();
+}
+
+function resetFormAndPicture() {
+  $form.reset();
+  $previewPhoto.src = 'images/placeholder-image-square.jpg';
 }
 
 var pages = document.querySelectorAll('.page');
@@ -169,3 +175,14 @@ function editButtonListener(event) {
   }
 }
 $entriesList.addEventListener('click', editButtonListener);
+
+// delete button
+var $delete = document.querySelector('.delete-button-container');
+function revealDelete() {
+  if (data.editing === null) {
+    $delete.setAttribute('class', 'hidden');
+  } else {
+    $delete.setAttribute('class', 'delete-button-container');
+  }
+}
+window.addEventListener('click', revealDelete);

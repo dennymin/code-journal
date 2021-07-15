@@ -47,8 +47,11 @@
             <label class="full-flex" for="Notes">Notes</label>
             <textarea class="full-flex text-input notes" id="Notes" type="text" required="required" name="notes"></textarea>
           </div>
-          <div class="column-full row flex-end">
-            <input class="button save-button" name="save-button" type="submit" data-view="entries">
+          <div class="column-full">
+            <div class="delete-button-container hidden">
+              <button class="delete-button float-left">Delete Entry</button>
+            </div>
+            <input class="button save-button float-right" name="save-button" type="submit" data-view="entries">
           </div>
         </form>
       </div>
@@ -66,7 +69,6 @@
           <li class="empty-entry-list">No entries have been recorded</li>
         </ul>
       </div>
-
     </main>
   </div>
   <script src="js/data.js"></script>

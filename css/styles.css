@@ -73,12 +73,26 @@
   font-size: 1.5rem;
 }
 
-.pen-button:hover {
-  cursor: pointer;
-}
-
 .float-right {
   float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.delete-button {
+  text-decoration: underline;
+  color: red;
+  border: 1px hidden;
+  text-align: end;
+  position: relative;
+  top: 15px;
+}
+
+.pen-button:hover,
+.delete-button:hover {
+  cursor: pointer;
 }
 
 /* Entry Form Inputs */
