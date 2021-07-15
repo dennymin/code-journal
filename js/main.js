@@ -14,27 +14,51 @@ $photoUrl.addEventListener('input', updateSRC);
 var $form = document.forms[0];
 function storeData(event) {
   event.preventDefault();
-  var dataEntry = {};
-  dataEntry.title = $form.elements.title.value;
-  dataEntry.pictureLink = $form.elements.photoUrl.value;
-  dataEntry.notes = $form.elements.notes.value;
-  dataEntry.entryId = data.nextEntryId;
-  data.entries.unshift(dataEntry);
-  $form.reset();
-  $previewPhoto.src = 'images/placeholder-image-square.jpg';
-  $entriesList.setAttribute('class', 'entries-list');
-  data.view = 'entries';
-  switchViewTo('entries');
+  if (data.editing === null) {
+    var dataEntry = {};
+    dataEntry.title = $form.elements.title.value;
+    dataEntry.pictureLink = $form.elements.photoUrl.value;
+    dataEntry.notes = $form.elements.notes.value;
+    dataEntry.entryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(dataEntry);
+    $form.reset();
+    $previewPhoto.src = 'images/placeholder-image-square.jpg';
+    $entriesList.setAttribute('class', 'entries-list');
+    data.view = 'entries';
+    switchViewTo('entries');
+    var newDataEntry = data.entries[0];
+    prependDOM(newDataEntry);
+  } else {
+    var $updatedEntry = {};
+    for (var dataEntriesIndex2 = 0; dataEntriesIndex2 < data.entries.length; dataEntriesIndex2++) {
+      if (data.editing === data.entries[dataEntriesIndex2].entryId.toString()) {
+        $updatedEntry.title = $form.elements.title.value;
+        $updatedEntry.pictureLink = $form.elements.photoUrl.value;
+        $updatedEntry.notes = $form.elements.notes.value;
+        $updatedEntry.entryId = data.editing;
+        data.entries[dataEntriesIndex2] = $updatedEntry;
+        $entriesUnorderedList.children[data.editing].replaceWith($updatedEntry);
+        prependDOM($updatedEntry);
+        switchViewTo('entries');
+      }
+    }
+  }
 }
 $form.addEventListener('submit', storeData);
 
-function prependDOM(event) {
-  var $newestEntry = createEntry(data.entries[0]);
-  $newestEntry.setAttribute('data-entry-id', data.nextEntryId);
-  data.nextEntryId++;
+// function prependDOM(event) {
+//   var $newestEntry = createEntry(data.entries[0]);
+//   $newestEntry.setAttribute('data-entry-id', data.nextEntryId);
+//   data.nextEntryId++;
+//   $entriesUnorderedList.prepend($newestEntry);
+// }
+// $form.addEventListener('submit', prependDOM);
+function prependDOM(selectEntry) {
+  var $newestEntry = createEntry(selectEntry);
+  $newestEntry.setAttribute('data-entry-id', selectEntry.entryId);
   $entriesUnorderedList.prepend($newestEntry);
 }
-$form.addEventListener('submit', prependDOM);
 
 // entries list generation code
 var $entriesList = document.querySelector('.entries-list');
@@ -90,13 +114,19 @@ document.addEventListener('DOMContentLoaded', generateDOM);
 
 // links
 var $newEntryButton = document.querySelector('.new-entry-button');
-$newEntryButton.addEventListener('click', retrieveTargetLink);
+$newEntryButton.addEventListener('click', retrieveTargetLinkNewButton);
 var $entriesLink = document.querySelector('.header-entries-link');
 $entriesLink.addEventListener('click', retrieveTargetLink);
 
 function retrieveTargetLink(event) {
   var destination = event.target.getAttribute('data-view');
   switchViewTo(destination);
+}
+
+function retrieveTargetLinkNewButton(event) {
+  var destination = event.target.getAttribute('data-view');
+  switchViewTo(destination);
+  data.editing = null;
 }
 
 var pages = document.querySelectorAll('.page');
