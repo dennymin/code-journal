@@ -30,19 +30,28 @@ function storeData(event) {
     var newDataEntry = data.entries[0];
     prependDOM(newDataEntry);
   } else {
-    var $updatedEntry = {};
+    var updatedEntry = {};
     for (var dataEntriesIndex2 = 0; dataEntriesIndex2 < data.entries.length; dataEntriesIndex2++) {
       if (data.editing === data.entries[dataEntriesIndex2].entryId.toString()) {
-        $updatedEntry.title = $form.elements.title.value;
-        $updatedEntry.pictureLink = $form.elements.photoUrl.value;
-        $updatedEntry.notes = $form.elements.notes.value;
-        $updatedEntry.entryId = data.editing;
-        data.entries[dataEntriesIndex2] = $updatedEntry;
-        $entriesUnorderedList.children[data.editing].replaceWith($updatedEntry);
-        prependDOM($updatedEntry);
+        updatedEntry.title = $form.elements.title.value;
+        updatedEntry.pictureLink = $form.elements.photoUrl.value;
+        updatedEntry.notes = $form.elements.notes.value;
+        updatedEntry.entryId = data.editing;
+        data.entries[dataEntriesIndex2] = updatedEntry;
+        var $updatedEntry = createEntry(updatedEntry);
+        $updatedEntry.setAttribute('data-entry-id', updatedEntry.entryId);
+        for (var childElementIndex = 0; childElementIndex < $entriesUnorderedList.children.length; childElementIndex++) {
+          if ($entriesUnorderedList.children[childElementIndex].getAttribute('data-entry-id') === updatedEntry.entryId) {
+            $entriesUnorderedList.children[childElementIndex].replaceWith($updatedEntry);
+          }
+        }
+        $entriesUnorderedList.prepend($updatedEntry);
         switchViewTo('entries');
+        data.entries.splice(dataEntriesIndex2, 1);
       }
     }
+    data.entries.unshift(updatedEntry);
+    data.editing = null;
   }
 }
 $form.addEventListener('submit', storeData);
@@ -114,16 +123,11 @@ document.addEventListener('DOMContentLoaded', generateDOM);
 
 // links
 var $newEntryButton = document.querySelector('.new-entry-button');
-$newEntryButton.addEventListener('click', retrieveTargetLinkNewButton);
+$newEntryButton.addEventListener('click', retrieveTargetLink);
 var $entriesLink = document.querySelector('.header-entries-link');
 $entriesLink.addEventListener('click', retrieveTargetLink);
 
 function retrieveTargetLink(event) {
-  var destination = event.target.getAttribute('data-view');
-  switchViewTo(destination);
-}
-
-function retrieveTargetLinkNewButton(event) {
   var destination = event.target.getAttribute('data-view');
   switchViewTo(destination);
   data.editing = null;
