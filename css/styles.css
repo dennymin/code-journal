@@ -59,6 +59,28 @@
   margin-bottom: 30px;
 }
 
+.fa-pen {
+  color: rgb(172, 137, 207);
+}
+
+.fa-pen:hover {
+  color: rgb(86, 43, 129);
+}
+
+.pen-button {
+  border: none;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.pen-button:hover {
+  cursor: pointer;
+}
+
+.float-right {
+  float: right;
+}
+
 /* Entry Form Inputs */
 textarea {
   font-family: sans-serif, monospace;
