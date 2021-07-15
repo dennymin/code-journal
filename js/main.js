@@ -116,3 +116,12 @@ function showLastViewVisited(event) {
   switchViewTo(data.view);
 }
 window.addEventListener('DOMContentLoaded', showLastViewVisited);
+
+// listening for clicks on the parent element of all rendered entries
+// function editButtonListener(event) {
+//   if (event.target && event.target.className === 'float-right pen-button') {
+//     var $parentEntryContainer = event.target.closest('.entry-container');
+//     console.log('hi');
+//   }
+// }
+// $entriesList.addEventListener('click', editButtonListener);
