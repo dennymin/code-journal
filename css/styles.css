@@ -73,6 +73,10 @@
   font-size: 1.5rem;
 }
 
+.pen-button:hover {
+  cursor: pointer;
+}
+
 .float-right {
   float: right;
 }
@@ -83,16 +87,51 @@
 
 .delete-button {
   text-decoration: underline;
-  color: red;
+  color: rgb(253, 93, 93);
   border: 1px hidden;
   text-align: end;
   position: relative;
   top: 15px;
 }
 
-.pen-button:hover,
 .delete-button:hover {
+  color: red;
+}
+
+/* Modal Content */
+.modal {
+  border: 1px solid;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 1000px rgba(20, 20, 20, 0.7), 0 1px 0 1px rgb(21, 21, 21, 0.6);
+  text-align: center;
+  position: fixed;
+  top: 35%;
+  padding: 10px 10px;
+}
+
+.option-button {
+  border: 1px hidden;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-weight: 600;
+}
+
+.option-button:hover {
   cursor: pointer;
+}
+
+.cancel-button {
+  background-color: rgb(134, 134, 134);
+  color: black;
+}
+
+.confirm-button {
+  background-color: red;
+  color: white;
+}
+
+.modal > p {
+  font-size: small;
 }
 
 /* Entry Form Inputs */

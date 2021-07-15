@@ -46,10 +46,9 @@ function storeData(event) {
           }
         }
         switchViewTo('entries');
-        data.entries.splice(dataEntriesIndex2, 1);
+        data.entries.splice(dataEntriesIndex2, 1, updatedEntry);
       }
     }
-    data.entries.unshift(updatedEntry);
     data.editing = null;
   }
 }
