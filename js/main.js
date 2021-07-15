@@ -45,7 +45,6 @@ function storeData(event) {
             $entriesUnorderedList.children[childElementIndex].replaceWith($updatedEntry);
           }
         }
-        $entriesUnorderedList.prepend($updatedEntry);
         switchViewTo('entries');
         data.entries.splice(dataEntriesIndex2, 1);
       }
@@ -56,13 +55,6 @@ function storeData(event) {
 }
 $form.addEventListener('submit', storeData);
 
-// function prependDOM(event) {
-//   var $newestEntry = createEntry(data.entries[0]);
-//   $newestEntry.setAttribute('data-entry-id', data.nextEntryId);
-//   data.nextEntryId++;
-//   $entriesUnorderedList.prepend($newestEntry);
-// }
-// $form.addEventListener('submit', prependDOM);
 function prependDOM(selectEntry) {
   var $newestEntry = createEntry(selectEntry);
   $newestEntry.setAttribute('data-entry-id', selectEntry.entryId);
