@@ -118,11 +118,28 @@ function showLastViewVisited(event) {
 window.addEventListener('DOMContentLoaded', showLastViewVisited);
 
 // listening for clicks on the parent element of all rendered entries
+// we need to get the value of the selected data entry
 function editButtonListener(event) {
   if (event.target && event.target.nodeName === 'I') {
     var $parentEntryContainer = event.target.closest('.entry-container');
     data.editing = $parentEntryContainer.getAttribute('data-entry-id');
+    var $entryNeedsEditing = {};
+    for (var dataEntriesIndex = 0; dataEntriesIndex < data.entries.length; dataEntriesIndex++) {
+      if (data.editing === data.entries[dataEntriesIndex].entryId.toString()) {
+        $entryNeedsEditing = data.entries[dataEntriesIndex];
+      }
+    }
     switchViewTo('entry-form');
+    // console.log($entryNeedsEditing);
+    var $currentTitle = $entryNeedsEditing.title;
+    var $currentPhotoUrl = $entryNeedsEditing.pictureLink;
+    var $currentNotes = $entryNeedsEditing.notes;
+    // console.log($currentNotes, $currentPhotoUrl, $currentTitle);
+
+    $form.elements.title.value = $currentTitle;
+    $form.elements.photoUrl.value = $currentPhotoUrl;
+    $form.elements.notes.value = $currentNotes;
+    $previewPhoto.setAttribute('src', $currentPhotoUrl);
   }
 }
 $entriesList.addEventListener('click', editButtonListener);
