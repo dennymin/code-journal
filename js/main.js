@@ -13,20 +13,27 @@ $photoUrl.addEventListener('input', updateSRC);
 // save button interactions code
 var $form = document.forms[0];
 var $saveButton = document.querySelector('.save-button');
+function createDataEntry(formTemplate) {
+  var dataEntry = {
+    title: formTemplate.title.value,
+    pictureLink: formTemplate.photoUrl.value,
+    notes: formTemplate.notes.value
+  };
+  if (data.editing === null) {
+    dataEntry.entryId = data.nextEntryId;
+    data.nextEntryId++;
+  } else {
+    dataEntry.entryId = data.editing;
+  }
+  return dataEntry;
+}
 function storeData(event) {
   event.preventDefault();
   if (data.editing === null) {
-    var dataEntry = {};
-    dataEntry.title = $form.elements.title.value;
-    dataEntry.pictureLink = $form.elements.photoUrl.value;
-    dataEntry.notes = $form.elements.notes.value;
-    dataEntry.entryId = data.nextEntryId;
-    data.nextEntryId++;
-    data.entries.unshift(dataEntry);
-    $form.reset();
-    $previewPhoto.src = 'images/placeholder-image-square.jpg';
+    var tempEntry = createDataEntry($form.elements);
+    data.entries.unshift(tempEntry);
+    resetFormAndPicture();
     $entriesList.setAttribute('class', 'entries-list');
-    data.view = 'entries';
     switchViewTo('entries');
     var newDataEntry = data.entries[0];
     prependDOM(newDataEntry);
@@ -34,10 +41,7 @@ function storeData(event) {
     var updatedEntry = {};
     for (var dataEntriesIndex2 = 0; dataEntriesIndex2 < data.entries.length; dataEntriesIndex2++) {
       if (data.editing === data.entries[dataEntriesIndex2].entryId.toString()) {
-        updatedEntry.title = $form.elements.title.value;
-        updatedEntry.pictureLink = $form.elements.photoUrl.value;
-        updatedEntry.notes = $form.elements.notes.value;
-        updatedEntry.entryId = data.editing;
+        updatedEntry = createDataEntry($form.elements);
         data.entries[dataEntriesIndex2] = updatedEntry;
         var $updatedEntry = createEntry(updatedEntry);
         $updatedEntry.setAttribute('data-entry-id', updatedEntry.entryId);
