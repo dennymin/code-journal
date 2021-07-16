@@ -1,18 +1,44 @@
 /* global data */
 /* exported data */
 
-// photo url and preview photo code
+// variables
+// variables of new entry form
 var $photoUrl = document.querySelector('.photoUrl');
 var $previewPhoto = document.querySelector('.preview-photo');
-function updateSRC(event) {
-  $previewPhoto.src = $photoUrl.value;
-}
-
-$photoUrl.addEventListener('input', updateSRC);
-
-// save button interactions code
 var $form = document.forms[0];
-var $saveButton = document.querySelector('.save-button');
+var $submitButton = document.querySelector('.submit-button');
+
+// variables of entries list
+var $entriesList = document.querySelector('.entries-list');
+var $entriesUnorderedList = document.querySelector('ul');
+var $liList = $entriesUnorderedList.children;
+var $emptyList = document.querySelector('.empty-entry-list');
+var $newEntryButton = document.querySelector('.new-entry-button');
+
+// variables of edit form
+var $delete = document.querySelector('.delete-button-container');
+var $deleteButton = document.querySelector('.delete-button');
+var $modalScreen = document.querySelector('.modal-container');
+var $cancelButton = document.querySelector('.cancel-button');
+var $confirmButton = document.querySelector('.confirm-button');
+
+// variables of perpetual existence
+var $entriesLink = document.querySelector('.header-entries-link');
+var pages = document.querySelectorAll('.page');
+
+// event listeners
+$photoUrl.addEventListener('input', updateSRC);
+$submitButton.addEventListener('click', storeData);
+document.addEventListener('DOMContentLoaded', generateDOM);
+$newEntryButton.addEventListener('click', retrieveTargetLink);
+$entriesLink.addEventListener('click', retrieveTargetLink);
+window.addEventListener('DOMContentLoaded', showLastViewVisited);
+$entriesList.addEventListener('click', editButtonListener);
+$deleteButton.addEventListener('click', revealModal);
+$cancelButton.addEventListener('click', modalCanceled);
+$confirmButton.addEventListener('click', entryDeleted);
+
+// functions list
 function createDataEntry(formTemplate) {
   var dataEntry = {
     title: formTemplate.title.value,
@@ -27,37 +53,35 @@ function createDataEntry(formTemplate) {
   }
   return dataEntry;
 }
+
 function storeData(event) {
   event.preventDefault();
   if (data.editing === null) {
     var tempEntry = createDataEntry($form.elements);
     data.entries.unshift(tempEntry);
     resetFormAndPicture();
-    $entriesList.setAttribute('class', 'entries-list');
     switchViewTo('entries');
-    var newDataEntry = data.entries[0];
-    prependDOM(newDataEntry);
+    prependDOM(tempEntry);
   } else {
-    var updatedEntry = {};
+    var updatingEntry = {};
     for (var dataEntriesIndex2 = 0; dataEntriesIndex2 < data.entries.length; dataEntriesIndex2++) {
       if (data.editing === data.entries[dataEntriesIndex2].entryId.toString()) {
-        updatedEntry = createDataEntry($form.elements);
-        data.entries[dataEntriesIndex2] = updatedEntry;
-        var $updatedEntry = createEntry(updatedEntry);
-        $updatedEntry.setAttribute('data-entry-id', updatedEntry.entryId);
-        for (var childElementIndex = 0; childElementIndex < $entriesUnorderedList.children.length; childElementIndex++) {
-          if ($entriesUnorderedList.children[childElementIndex].getAttribute('data-entry-id') === updatedEntry.entryId) {
-            $entriesUnorderedList.children[childElementIndex].replaceWith($updatedEntry);
+        updatingEntry = createDataEntry($form.elements);
+        data.entries[dataEntriesIndex2] = updatingEntry;
+        var $updatedEntryObject = createEntry(updatingEntry);
+        $updatedEntryObject.setAttribute('data-entry-id', updatingEntry.entryId);
+        for (var childElementIndex = 0; childElementIndex < $liList.length; childElementIndex++) {
+          if ($liList[childElementIndex].getAttribute('data-entry-id') === updatingEntry.entryId) {
+            $liList[childElementIndex].replaceWith($updatedEntryObject);
           }
         }
         switchViewTo('entries');
-        data.entries.splice(dataEntriesIndex2, 1, updatedEntry);
+        data.entries.splice(dataEntriesIndex2, 1, updatingEntry);
       }
     }
     data.editing = null;
   }
 }
-$saveButton.addEventListener('click', storeData);
 
 function prependDOM(selectEntry) {
   var $newestEntry = createEntry(selectEntry);
@@ -65,18 +89,13 @@ function prependDOM(selectEntry) {
   $entriesUnorderedList.prepend($newestEntry);
 }
 
-// entries list generation code
-var $entriesList = document.querySelector('.entries-list');
-var $entriesUnorderedList = document.querySelector('ul');
-var $emptyList = document.querySelector('.empty-entry-list');
-
 function createEntry(entry) {
   $emptyList.setAttribute('class', 'hidden');
   var $newEntry = document.createElement('li');
   $newEntry.setAttribute('class', 'entry-container full-flex');
 
   var $newEntryImageContainer = document.createElement('div');
-  $newEntryImageContainer.setAttribute('class', 'column-half image-container no-padding');
+  $newEntryImageContainer.setAttribute('class', 'column-half image-container');
   var $newEntryImage = document.createElement('img');
   $newEntryImage.setAttribute('src', entry.pictureLink);
   $newEntryImageContainer.appendChild($newEntryImage);
@@ -115,46 +134,44 @@ function generateDOM(event) {
     $entriesUnorderedList.appendChild($appendedEntry);
   }
 }
-document.addEventListener('DOMContentLoaded', generateDOM);
 
-// links
-var $newEntryButton = document.querySelector('.new-entry-button');
-$newEntryButton.addEventListener('click', retrieveTargetLink);
-var $entriesLink = document.querySelector('.header-entries-link');
-$entriesLink.addEventListener('click', retrieveTargetLink);
-
-function retrieveTargetLink(event) {
-  var destination = event.target.getAttribute('data-view');
-  switchViewTo(destination);
-  data.editing = null;
-  resetFormAndPicture();
+// utility functions
+// functions for hiding or resetting
+function setHidden(targetObject) { // sets class to hidden
+  targetObject.className = 'hidden';
 }
 
-function resetFormAndPicture() {
+function resetFormAndPicture() { // resets entry form picture and form inputs
   $form.reset();
   $previewPhoto.src = 'images/placeholder-image-square.jpg';
 }
 
-var pages = document.querySelectorAll('.page');
-function switchViewTo(targetPage) {
+function updateSRC(event) { // makes the source of the preview photo what it is on the value
+  $previewPhoto.src = $photoUrl.value;
+}
+
+// functions for viewing
+function retrieveTargetLink(event) {
+  switchViewTo(event.target.getAttribute('data-view'));
+  data.editing = null;
+  resetFormAndPicture();
+}
+
+function switchViewTo(targetPage) { // changes the view property of data to the targetPage
   for (var j = 0; j < pages.length; j++) {
     if (pages[j].getAttribute('data-view') === targetPage) {
       data.view = targetPage;
       pages[j].className = 'view';
     } else {
       pages[j].className = 'view hidden';
-    }
+    } // makes the page you want to see visible and the other page hidden
   }
 }
 
-// prevent page from refreshing
 function showLastViewVisited(event) {
   switchViewTo(data.view);
 }
-window.addEventListener('DOMContentLoaded', showLastViewVisited);
 
-// listening for clicks on the parent element of all rendered entries
-// we need to get the value of the selected data entry
 function editButtonListener(event) {
   if (event.target && event.target.nodeName === 'I') {
     var $parentEntryContainer = event.target.closest('.entry-container');
@@ -179,10 +196,7 @@ function editButtonListener(event) {
   }
   revealDelete();
 }
-$entriesList.addEventListener('click', editButtonListener);
 
-// delete button
-var $delete = document.querySelector('.delete-button-container');
 function revealDelete(event) {
   if (data.editing === null) {
     setHidden($delete);
@@ -191,26 +205,15 @@ function revealDelete(event) {
   }
 }
 
-var $deleteButton = document.querySelector('.delete-button');
-var $modalScreen = document.querySelector('.modal-container');
 function revealModal(event) {
   event.preventDefault();
   $modalScreen.setAttribute('class', 'modal-container row centered');
   switchViewTo('entry-form');
 }
-$deleteButton.addEventListener('click', revealModal);
-
-var $cancelButton = document.querySelector('.cancel-button');
-var $confirmButton = document.querySelector('.confirm-button');
-
-function setHidden(targetObject) {
-  targetObject.className = 'hidden';
-}
 
 function modalCanceled(event) {
   setHidden($modalScreen);
 }
-$cancelButton.addEventListener('click', modalCanceled);
 
 function entryDeleted(event) {
   for (var dataEntriesIndex3 = 0; dataEntriesIndex3 < data.entries.length; dataEntriesIndex3++) {
@@ -218,16 +221,15 @@ function entryDeleted(event) {
       data.entries.splice(dataEntriesIndex3, 1);
     }
   }
-  for (var objectsIndex = 0; objectsIndex < $entriesUnorderedList.children.length; objectsIndex++) {
-    if ($entriesUnorderedList.children[objectsIndex].getAttribute('data-entry-id') === data.editing) {
-      $entriesUnorderedList.children[objectsIndex].remove();
+  for (var objectsIndex = 0; objectsIndex < $liList.length; objectsIndex++) {
+    if ($liList[objectsIndex].getAttribute('data-entry-id') === data.editing) {
+      $liList[objectsIndex].remove();
     }
   }
   if (data.entries.length === 0) {
-    $emptyList.className('empty-entry-list');
+    $emptyList.setAttribute('class', 'empty-entry-list');
   }
   modalCanceled();
   switchViewTo('entries');
   data.editing = null;
 }
-$confirmButton.addEventListener('click', entryDeleted);
